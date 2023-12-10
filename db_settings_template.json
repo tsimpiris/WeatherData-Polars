@@ -1,0 +1,10 @@
+{
+    "db_hostname": "192.168.1.44",
+    "db_port": "5432",
+    "db_username": "username",
+    "db_password": "password",
+    "db_name": "weather_data",
+    "db_schema": "wd",
+    "sensors_tbl": "sensors",
+    "wd_tbl": "weather_data"
+}
