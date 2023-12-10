@@ -87,7 +87,7 @@ def main_processing(uri: str, wd_csv_file_dict: dict, db_settings_dict: dict) ->
                 df.extend(row_df)
         
         # Load new weather observations into postgres
-        df.write_database(table_name = f'{db_settings_dict['db_schema']}.{db_settings_dict['wd_tbl']}',
+        df.write_database(table_name = f'{db_settings_dict["db_schema"]}.{db_settings_dict["wd_tbl"]}',
                           connection = uri,
                           engine = 'adbc',
                           if_exists = 'append')
