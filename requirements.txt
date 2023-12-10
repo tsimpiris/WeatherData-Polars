@@ -1,0 +1,6 @@
+adbc-driver-manager==0.8.0
+adbc-driver-postgresql==0.8.0
+connectorx==0.2.3
+numpy==1.26.2
+polars==0.19.19
+pyarrow==14.0.1
