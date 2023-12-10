@@ -1,5 +1,6 @@
 {
     "db_settings_filepath": "db_settings.json",
     "path_to_check": "N:\\aa",
-    "input_file_mask": "_data"
+    "input_file_mask": "_data",
+    "archive_dir": "archives"
 }

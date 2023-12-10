@@ -3,6 +3,7 @@ import sys
 import glob
 import json
 import time
+import shutil
 
 import polars as pl
 
@@ -23,11 +24,34 @@ def main():
                                            settings_dict['input_file_mask'],
                                            db_settings_dict,
                                            settings_dict)
-    
+
     # All transformations and loading to postgres
     main_processing(uri, wd_csv_file_dict, db_settings_dict)
+    
+    archive_processed_files(list(wd_csv_file_dict.keys()), settings_dict)
 
     print(f'\nTotal Proccessing Time: {round(time.time() - start_time, 2)} seconds')
+
+
+def archive_processed_files(file_lst: list, settings_dict: dict) -> None:
+    # Create archives dir if it doesn't exist
+    archives_location = os.path.join(settings_dict['path_to_check'], settings_dict['archive_dir'])
+    if not os.path.isdir(archives_location):
+        os.makedirs(archives_location)
+        print(f'Archive folder has been created: {archives_location}')
+    
+    for file in file_lst:
+        filename_with_no_ext = os.path.basename(file)[:-4]
+
+        # Add current datetime to the archived filename
+        timestr = time.strftime("%Y%m%d%H%M%S")
+        new_filepath = os.path.join(archives_location, f'{filename_with_no_ext}_{timestr}.csv')
+        
+        try:
+            shutil.move(file, new_filepath)
+            print(f'Archived: {os.path.basename(file)} --> {os.path.basename(new_filepath)}')
+        except Exception as e:
+            print(e)
 
 
 def main_processing(uri: str, wd_csv_file_dict: dict, db_settings_dict: dict) -> None:
